@@ -19,10 +19,17 @@ head(cars)
 #Loading libraries
 ```{r include = FALSE}
 ##install.packages("tidyverse")
+##install.packages("plotly")
 library("tidyverse")
+library("plotly")
+
 
 cars %>%
-  ggplot(cars, aes( x = speed)) + geom_histogram(bins = 10)
+  ggplot(aes( x = speed)) + geom_histogram(bins = 30)  
+cars %>%
+  ggplot(aes(x = 1, y = dist)) + geom_boxplot() + theme_bw()  
+
+
 ```
 
 
