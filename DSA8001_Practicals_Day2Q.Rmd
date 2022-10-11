@@ -1,0 +1,122 @@
+---
+title: "DSA8001 - Practicals & Solutions"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r include=FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(car)) install.packages("car")
+library(tidyverse)
+library(car)
+```
+
+# Analysing Normally Distributed Data
+
+## Question 1
+
+Head lengths of brushtail possums follow a nearly normal distribution with mean 92.6 mm and standard deviation 3.6 mm. 
+ 
+ 1. Compute the Z-scores for possums with head lengths of 95.4 mm and 85.8 mm. 
+ 2. Use calculated Z-scores to determine how many standard deviations above or below the mean measured head lengths of these two possums fall 
+ 3. Head length of which possum is more unusual?
+ 
+ 
+
+### Solution
+
+```{r}
+
+mu <- 92.6
+s <- 3.6
+zscore <- function(x, mu, s) {
+  result <- (x-mu)/s
+  return(result)
+}
+# 1. Calculating the Z-scores for given possum head lengths
+
+z1 <- zscore (95.4, mu, s)
+z1 
+z2 <- zscore (85.8, mu, s)
+print(paste( "First possum's head length falls",round(z1, digits = 2), " standart deviations above the mean. Second possum's head length falls", round(z2, digits = 2), " standart deviations below the mean"))
+if(abs(z1)>abs(z2)){ unusual <- "first"} else { unusual <-"second"}
+print(paste("Therefore the", unusual, "possum has a more unusual head" ))
+```
+
+## Question 2
+
+Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). Randomly selected person Julie has 1800 friends. 
+
+1. She would like to know what percentile she falls among other Facebook users? 
+2. What is the percentage of people that have more friends than Julie?
+
+### Solution
+
+```{r}
+mu <- 1500
+s <- 300
+j <- 1800
+
+zscore(j, mu,s)
+f <- pnorm(j, mean = mu, sd = s)
+100*(1 - f)
+```
+
+## Question 3
+
+Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). What is the probability that a randomly selected person has **AT LEAST** 1630 friends on Facebook? 
+
+NOTE: Round solution to 3 decimal places.
+
+### Solution
+
+```{r}
+mu <- 1500
+s <- 300
+j <- 1800
+
+zscore(j, mu,s)
+f <- pnorm(j, mean = mu, sd = s)
+100*(1 - f)
+```
+
+## Question 4
+
+Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). A randomly selected person is at the 79.95th percentile. How many Facebook friends does this person have?
+
+### Solution
+```{r}
+
+```
+
+
+## Question 5
+
+At Heinz factory the amounts which go into bottles of ketchup are supposed to be normally distributed with mean 36 oz. standard deviation 0.11 oz. Once every 30 minutes a bottle is selected from the production line, and its contents are noted precisely. If the amount of ketchup in the bottle is below 35.8 oz. or above 36.2 oz., then the bottle fails the quality control inspection. 
+
+1. What percentage of bottles have less than 35.8 ounces of ketchup?
+2. What percentage of bottles **PASS** the quality control inspection? 
+
+NOTE: Round solutions to 2 decimal places
+
+### Solution
+
+```{r}
+
+```
+
+
+## Question 6
+
+Body temperatures of healthy humans are distributed nearly normally with mean 98.2F and standard deviation 0.73F. What is the cutoff for the lowest 3% of human body temperatures?  
+
+NOTE: Round solution to 1 decimal place.
+
+### Solution
+
+
+```{r}
+
+```
