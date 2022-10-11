@@ -23,11 +23,17 @@ head(cars)
 library("tidyverse")
 library("plotly")
 
+```
 
+Here are the plots
+```{r}
 cars %>%
   ggplot(aes( x = speed)) + geom_histogram(bins = 30)  
+
+
 cars %>%
   ggplot(aes(x = 1, y = dist)) + geom_boxplot() + theme_bw()  
+ggplotly()
 
 
 ```
