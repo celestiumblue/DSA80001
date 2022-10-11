@@ -1,7 +1,9 @@
 ---
 title: "Practice"
-output: html_notebook
-
+output:
+  html_notebook:
+    toc: true
+    toc_float: true
 ---
 
 #Introduction
@@ -12,9 +14,15 @@ output: html_notebook
 The dataset's first 6 entries.
 ```{r echo = FALSE}
 head(cars)
+
+```
+```{r echo = FALSE}
+dim(cars)
+n_cols <-  ncol(cars)
+n_rows <-  nrow(cars)
 ```
 
-
+The dataset has `r  n_rows` **rows** and `r n_cols` **columns**
 ...
 #Loading libraries
 ```{r include = FALSE}
@@ -23,11 +31,17 @@ head(cars)
 library("tidyverse")
 library("plotly")
 
+```
 
+Here are the plots
+```{r}
 cars %>%
   ggplot(aes( x = speed)) + geom_histogram(bins = 30)  
+
+
 cars %>%
   ggplot(aes(x = 1, y = dist)) + geom_boxplot() + theme_bw()  
+ggplotly()
 
 
 ```
