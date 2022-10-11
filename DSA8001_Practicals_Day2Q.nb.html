@@ -2928,9 +2928,8 @@ fall</li>
 <h3>Solution</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5tdSA8LSA5Mi42XG5zIDwtIDMuNlxuenNjb3JlIDwtIGZ1bmN0aW9uKHgsIG11LCBzKSB7XG4gIHJlc3VsdCA8LSAoeC1tdSkvc1xuICByZXR1cm4ocmVzdWx0KVxufVxuIyAxLiBDYWxjdWxhdGluZyB0aGUgWi1zY29yZXMgZm9yIGdpdmVuIHBvc3N1bSBoZWFkIGxlbmd0aHNcblxuejEgPC0genNjb3JlICg5NS40LCBtdSwgcylcbnoxIFxuYGBgXG5gYGAifQ== -->
-<pre class="r"><code>```r
-
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tdSA8LSA5Mi42XG5zIDwtIDMuNlxuenNjb3JlIDwtIGZ1bmN0aW9uKHgsIG11LCBzKSB7XG4gIHJlc3VsdCA8LSAoeC1tdSkvc1xuICByZXR1cm4ocmVzdWx0KVxufVxuIyAxLiBDYWxjdWxhdGluZyB0aGUgWi1zY29yZXMgZm9yIGdpdmVuIHBvc3N1bSBoZWFkIGxlbmd0aHNcblxuejEgPC0genNjb3JlICg5NS40LCBtdSwgcylcbnoxIFxuejIgPC0genNjb3JlICg4NS44LCBtdSwgcylcbnByaW50KHBhc3RlKCBcIkZpcnN0IHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzXCIscm91bmQoejEsIGRpZ2l0cyA9IDIpLCBcIiBzdGFuZGFydCBkZXZpYXRpb25zIGFib3ZlIHRoZSBtZWFuLiBTZWNvbmQgcG9zc3VtJ3MgaGVhZCBsZW5ndGggZmFsbHNcIiwgcm91bmQoejIsIGRpZ2l0cyA9IDIpLCBcIiBzdGFuZGFydCBkZXZpYXRpb25zIGJlbG93IHRoZSBtZWFuXCIpKVxuaWYoYWJzKHoxKT5hYnMoejIpKXsgdW51c3VhbCA8LSBcImZpcnN0XCJ9IGVsc2UgeyB1bnVzdWFsIDwtXCJzZWNvbmRcIn1cbnByaW50KHBhc3RlKFwiVGhlcmVmb3JlIHRoZVwiLCB1bnVzdWFsLCBcInBvc3N1bSBoYXMgYSBtb3JlIHVudXN1YWwgaGVhZFwiICkpXG5gYGAifQ== -->
+<pre class="r"><code>
 mu &lt;- 92.6
 s &lt;- 3.6
 zscore &lt;- function(x, mu, s) {
@@ -2940,148 +2939,63 @@ zscore &lt;- function(x, mu, s) {
 # 1. Calculating the Z-scores for given possum head lengths
 
 z1 &lt;- zscore (95.4, mu, s)
-z1 </code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzc3Nzc3OFxuIn0= --&gt;
-</code></pre>
-<p>[1] 0.7777778</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuejIgPC0genNjb3JlICg4NS44LCBtdSwgcylcbnByaW50KHBhc3RlKCBcXEZpcnN0IHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzXFwscm91bmQoejEsIGRpZ2l0cyA9IDIpLCBcXCBzdGFuZGFydCBkZXZpYXRpb25zIGFib3ZlIHRoZSBtZWFuLiBTZWNvbmQgcG9zc3VtJ3MgaGVhZCBsZW5ndGggZmFsbHNcXCwgcm91bmQoejIsIGRpZ2l0cyA9IDIpLCBcXCBzdGFuZGFydCBkZXZpYXRpb25zIGJlbG93IHRoZSBtZWFuXFwpKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
+z1 
 z2 &lt;- zscore (85.8, mu, s)
-print(paste( \First possum&#39;s head length falls\,round(z1, digits = 2), \ standart deviations above the mean. Second possum&#39;s head length falls\, round(z2, digits = 2), \ standart deviations below the mean\))</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIFxcRmlyc3QgcG9zc3VtJ3MgaGVhZCBsZW5ndGggZmFsbHMgMC43OCAgc3RhbmRhcnQgZGV2aWF0aW9ucyBhYm92ZSB0aGUgbWVhbi4gU2Vjb25kIHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzIC0xLjg5ICBzdGFuZGFydCBkZXZpYXRpb25zIGJlbG93IHRoZSBtZWFuXFxcbiJ9 --&gt;
-</code></pre>
-<p>[1] possum’s head length falls 0.78 standart deviations above the
-mean. Second possum’s head length falls -1.89 standart deviations below
-the mean<br />
-</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaWYoYWJzKHoxKT5hYnMoejIpKXsgdW51c3VhbCA8LSBcXGZpcnN0XFx9IGVsc2UgeyB1bnVzdWFsIDwtXFxzZWNvbmRcXH1cbnByaW50KHBhc3RlKFxcVGhlcmVmb3JlIHRoZVxcLCB1bnVzdWFsLCBcXHBvc3N1bSBoYXMgYSBtb3JlIHVudXN1YWwgaGVhZFxcICkpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-if(abs(z1)&gt;abs(z2)){ unusual &lt;- \first\} else { unusual &lt;-\second\}
-print(paste(\Therefore the\, unusual, \possum has a more unusual head\ ))</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIFxcVGhlcmVmb3JlIHRoZSBzZWNvbmQgcG9zc3VtIGhhcyBhIG1vcmUgdW51c3VhbCBoZWFkXFxcbiJ9 --&gt;
-</code></pre>
-<p>[1] the second possum has a more unusual head<br />
-</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-## Question 2  
-
-Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). Randomly selected person Julie has 1800 friends. 
-
-1. She would like to know what percentile she falls among other Facebook users? 
-2. What is the percentage of people that have more friends than Julie?
-
-### Solution
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubXUgPC0gMTUwMFxucyA8LSAzMDBcbmogPC0gMTgwMFxuXG56c2NvcmUoaiwgbXUscylcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-mu &lt;- 1500
-s &lt;- 300
-j &lt;- 1800
-
-zscore(j, mu,s)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDFcbiJ9 --&gt;
-</code></pre>
-<p>[1] 1</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZiA8LSBwbm9ybShqLCBtZWFuID0gbXUsIHNkID0gcylcbjEwMCooMSAtIGYpXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-f &lt;- pnorm(j, mean = mu, sd = s)
-100*(1 - f)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE1Ljg2NTUzXG4ifQ== --&gt;
-</code></pre>
-<p>[1] 15.86553</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-## Question 3
-
-Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). What is the probability that a randomly selected person has **AT LEAST** 1630 friends on Facebook? 
-
-NOTE: Round solution to 3 decimal places.
-
-### Solution
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubXUgPC0gMTUwMFxucyA8LSAzMDBcbmogPC0gMTgwMFxuXG56c2NvcmUoaiwgbXUscylcbmYgPC0gcG5vcm0oaiwgbWVhbiA9IG11LCBzZCA9IHMpXG4xMDAqKDEgLSBmKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-mu &lt;- 1500
+print(paste( &quot;First possum&#39;s head length falls&quot;,round(z1, digits = 2), &quot; standart deviations above the mean. Second possum&#39;s head length falls&quot;, round(z2, digits = 2), &quot; standart deviations below the mean&quot;))
+if(abs(z1)&gt;abs(z2)){ unusual &lt;- &quot;first&quot;} else { unusual &lt;-&quot;second&quot;}
+print(paste(&quot;Therefore the&quot;, unusual, &quot;possum has a more unusual head&quot; ))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
+<p>Suppose the average number of Facebook friends is approximated well
+by the normal model N(mu = 1500, sigma = 300). Randomly selected person
+Julie has 1800 friends.</p>
+<ol style="list-style-type: decimal">
+<li>She would like to know what percentile she falls among other
+Facebook users?</li>
+<li>What is the percentage of people that have more friends than
+Julie?</li>
+</ol>
+<div id="solution-1" class="section level3">
+<h3>Solution</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXUgPC0gMTUwMFxucyA8LSAzMDBcbmogPC0gMTgwMFxuXG56c2NvcmUoaiwgbXUscylcbmYgPC0gcG5vcm0oaiwgbWVhbiA9IG11LCBzZCA9IHMpXG4xMDAqKDEgLSBmKVxuYGBgIn0= -->
+<pre class="r"><code>mu &lt;- 1500
 s &lt;- 300
 j &lt;- 1800
 
 zscore(j, mu,s)
 f &lt;- pnorm(j, mean = mu, sd = s)
 100*(1 - f)</code></pre>
-<p>```</p>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<p>Suppose the average number of Facebook friends is approximated well
+by the normal model N(mu = 1500, sigma = 300). What is the probability
+that a randomly selected person has <strong>AT LEAST</strong> 1630
+friends on Facebook?</p>
+<p>NOTE: Round solution to 3 decimal places.</p>
+<div id="solution-2" class="section level3">
+<h3>Solution</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXUgPC0gMTUwMFxucyA8LSAzMDBcbmogPC0gMTYzMFxuXG56c2NvcmUoaiwgbXUscylcbmYgPC0gcG5vcm0oaiwgbWVhbiA9IG11LCBzZCA9IHMpXG5yb3VuZChmLCBkaWdpdHMgPSAzKVxuYGBgIn0= -->
+<pre class="r"><code>mu &lt;- 1500
+s &lt;- 300
+j &lt;- 1630
+
+zscore(j, mu,s)
+f &lt;- pnorm(j, mean = mu, sd = s)
+round(f, digits = 3)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -3093,10 +3007,19 @@ f &lt;- pnorm(j, mean = mu, sd = s)
 by the normal model N(mu = 1500, sigma = 300). A randomly selected
 person is at the 79.95th percentile. How many Facebook friends does this
 person have?</p>
-<div id="solution-1" class="section level3">
+<div id="solution-3" class="section level3">
 <h3>Solution</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXUgPC0gMTUwMFxucyA8LSAzMDBcbmogPC0gMTYzMFxucSA8LSAgMC43OTk1XG5cbmYgPC0gcW5vcm0ocSwgbWVhbiA9IG11LCBzZCA9IHMpXG5mXG5gYGAifQ== -->
+<pre class="r"><code>mu &lt;- 1500
+s &lt;- 300
+j &lt;- 1630
+q &lt;-  0.7995
+
+f &lt;- qnorm(q, mean = mu, sd = s)
+f</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -3116,10 +3039,23 @@ ketchup?</li>
 inspection?</li>
 </ol>
 <p>NOTE: Round solutions to 2 decimal places</p>
-<div id="solution-2" class="section level3">
+<div id="solution-4" class="section level3">
 <h3>Solution</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXUgPC0gMzZcbnMgPC0gMC4xMVxubGIgPC0gIDM1LjhcbnViIDwtIDM2LjJcblxuXG5wbCA8LSBwbm9ybShsYiwgbWVhbiA9IG11LCBzZCA9IHMpXG5wcmludChwYXN0ZShyb3VuZCgxMDAqcGwsIGRpZ2l0cyA9IDIpLCBcIiVcIikpXG5wdSA8LSBwbm9ybSh1YiwgbWVhbiA9IG11LCBzZCA9IHMpXG5wYXNzIDwtIHB1IC0gcGxcbnByaW50KHBhc3RlKHJvdW5kKDEwMCpwYXNzLCBkaWdpdHMgPSAyKSwgXCIlXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>mu &lt;- 36
+s &lt;- 0.11
+lb &lt;-  35.8
+ub &lt;- 36.2
+
+
+pl &lt;- pnorm(lb, mean = mu, sd = s)
+print(paste(round(100*pl, digits = 2), &quot;%&quot;))
+pu &lt;- pnorm(ub, mean = mu, sd = s)
+pass &lt;- pu - pl
+print(paste(round(100*pass, digits = 2), &quot;%&quot;))</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -3130,16 +3066,30 @@ inspection?</li>
 with mean 98.2F and standard deviation 0.73F. What is the cutoff for the
 lowest 3% of human body temperatures?</p>
 <p>NOTE: Round solution to 1 decimal place.</p>
-<div id="solution-3" class="section level3">
+<div id="solution-5" class="section level3">
 <h3>Solution</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXUgPC05OC4yXG5zIDwtIDAuNzNcbmogPC0gMC4wM1xuXG5mIDwtIHFub3JtKGosIG1lYW4gPSBtdSwgc2QgPSBzKVxucm91bmQoZiwgZGlnaXRzID0gMSlcblxuZGlzdHIgPC0gcm5vcm0oMTAwMCwgbWVhbiA9IG11LCBzZCA9IHMpXG5kaXN0ciA8LSBhcy5kYXRhLmZyYW1lKGRpc3RyKVxuZ2dwbG90KGRpc3RyLCBhZXMoeCA9IGRpc3RyKSkgKyBnZW9tX2RlbnNpdHkoKSArIHRoZW1lX2J3KCkgKyB4bGFiKFwiVGVtcGVyYXR1cmVzLCBGXCIpICsgZ2VvbV92bGluZSh4aW50ZXJjZXB0PWYsIGxpbmV0eXBlPVwiZGFzaGVkXCIsIGNvbG9yID0gXCIjMDA2NkNDXCIpXG5gYGAifQ== -->
+<pre class="r"><code>mu &lt;-98.2
+s &lt;- 0.73
+j &lt;- 0.03
+
+f &lt;- qnorm(j, mean = mu, sd = s)
+round(f, digits = 1)
+
+distr &lt;- rnorm(1000, mean = mu, sd = s)
+distr &lt;- as.data.frame(distr)
+ggplot(distr, aes(x = distr)) + geom_density() + theme_bw() + xlab(&quot;Temperatures, F&quot;) + geom_vline(xintercept=f, linetype=&quot;dashed&quot;, color = &quot;#0066CC&quot;)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 </div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRTQTgwMDEgLSBQcmFjdGljYWxzICYgU29sdXRpb25zIg0Kb3V0cHV0OiANCiAgaHRtbF9ub3RlYm9vazoNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IHRydWUNCi0tLQ0KDQpgYGB7ciBpbmNsdWRlPUZBTFNFfQ0KaWYoIXJlcXVpcmUodGlkeXZlcnNlKSkgaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCmlmKCFyZXF1aXJlKGNhcikpIGluc3RhbGwucGFja2FnZXMoImNhciIpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoY2FyKQ0KYGBgDQoNCiMgQW5hbHlzaW5nIE5vcm1hbGx5IERpc3RyaWJ1dGVkIERhdGENCg0KIyMgUXVlc3Rpb24gMQ0KDQpIZWFkIGxlbmd0aHMgb2YgYnJ1c2h0YWlsIHBvc3N1bXMgZm9sbG93IGEgbmVhcmx5IG5vcm1hbCBkaXN0cmlidXRpb24gd2l0aCBtZWFuIDkyLjYgbW0gYW5kIHN0YW5kYXJkIGRldmlhdGlvbiAzLjYgbW0uIA0KIA0KIDEuIENvbXB1dGUgdGhlIFotc2NvcmVzIGZvciBwb3NzdW1zIHdpdGggaGVhZCBsZW5ndGhzIG9mIDk1LjQgbW0gYW5kIDg1LjggbW0uIA0KIDIuIFVzZSBjYWxjdWxhdGVkIFotc2NvcmVzIHRvIGRldGVybWluZSBob3cgbWFueSBzdGFuZGFyZCBkZXZpYXRpb25zIGFib3ZlIG9yIGJlbG93IHRoZSBtZWFuIG1lYXN1cmVkIGhlYWQgbGVuZ3RocyBvZiB0aGVzZSB0d28gcG9zc3VtcyBmYWxsIA0KIDMuIEhlYWQgbGVuZ3RoIG9mIHdoaWNoIHBvc3N1bSBpcyBtb3JlIHVudXN1YWw/DQogDQogDQoNCiMjIyBTb2x1dGlvbg0KDQpgYGB7cn0NCg0KbXUgPC0gOTIuNg0KcyA8LSAzLjYNCnpzY29yZSA8LSBmdW5jdGlvbih4LCBtdSwgcykgew0KICByZXN1bHQgPC0gKHgtbXUpL3MNCiAgcmV0dXJuKHJlc3VsdCkNCn0NCiMgMS4gQ2FsY3VsYXRpbmcgdGhlIFotc2NvcmVzIGZvciBnaXZlbiBwb3NzdW0gaGVhZCBsZW5ndGhzDQoNCnoxIDwtIHpzY29yZSAoOTUuNCwgbXUsIHMpDQp6MSANCnoyIDwtIHpzY29yZSAoODUuOCwgbXUsIHMpDQpwcmludChwYXN0ZSggIkZpcnN0IHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzIixyb3VuZCh6MSwgZGlnaXRzID0gMiksICIgc3RhbmRhcnQgZGV2aWF0aW9ucyBhYm92ZSB0aGUgbWVhbi4gU2Vjb25kIHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzIiwgcm91bmQoejIsIGRpZ2l0cyA9IDIpLCAiIHN0YW5kYXJ0IGRldmlhdGlvbnMgYmVsb3cgdGhlIG1lYW4iKSkNCmlmKGFicyh6MSk+YWJzKHoyKSl7IHVudXN1YWwgPC0gImZpcnN0In0gZWxzZSB7IHVudXN1YWwgPC0ic2Vjb25kIn0NCnByaW50KHBhc3RlKCJUaGVyZWZvcmUgdGhlIiwgdW51c3VhbCwgInBvc3N1bSBoYXMgYSBtb3JlIHVudXN1YWwgaGVhZCIgKSkNCmBgYA0KDQojIyBRdWVzdGlvbiAyICANCg0KU3VwcG9zZSB0aGUgYXZlcmFnZSBudW1iZXIgb2YgRmFjZWJvb2sgZnJpZW5kcyBpcyBhcHByb3hpbWF0ZWQgd2VsbCBieSB0aGUgbm9ybWFsIG1vZGVsIE4obXUgPSAxNTAwLCBzaWdtYSA9IDMwMCkuIFJhbmRvbWx5IHNlbGVjdGVkIHBlcnNvbiBKdWxpZSBoYXMgMTgwMCBmcmllbmRzLiANCg0KMS4gU2hlIHdvdWxkIGxpa2UgdG8ga25vdyB3aGF0IHBlcmNlbnRpbGUgc2hlIGZhbGxzIGFtb25nIG90aGVyIEZhY2Vib29rIHVzZXJzPyANCjIuIFdoYXQgaXMgdGhlIHBlcmNlbnRhZ2Ugb2YgcGVvcGxlIHRoYXQgaGF2ZSBtb3JlIGZyaWVuZHMgdGhhbiBKdWxpZT8NCg0KIyMjIFNvbHV0aW9uDQoNCmBgYHtyfQ0KbXUgPC0gMTUwMA0KcyA8LSAzMDANCmogPC0gMTgwMA0KDQp6c2NvcmUoaiwgbXUscykNCmYgPC0gcG5vcm0oaiwgbWVhbiA9IG11LCBzZCA9IHMpDQoxMDAqKDEgLSBmKQ0KYGBgDQoNCiMjIFF1ZXN0aW9uIDMNCg0KU3VwcG9zZSB0aGUgYXZlcmFnZSBudW1iZXIgb2YgRmFjZWJvb2sgZnJpZW5kcyBpcyBhcHByb3hpbWF0ZWQgd2VsbCBieSB0aGUgbm9ybWFsIG1vZGVsIE4obXUgPSAxNTAwLCBzaWdtYSA9IDMwMCkuIFdoYXQgaXMgdGhlIHByb2JhYmlsaXR5IHRoYXQgYSByYW5kb21seSBzZWxlY3RlZCBwZXJzb24gaGFzICoqQVQgTEVBU1QqKiAxNjMwIGZyaWVuZHMgb24gRmFjZWJvb2s/IA0KDQpOT1RFOiBSb3VuZCBzb2x1dGlvbiB0byAzIGRlY2ltYWwgcGxhY2VzLg0KDQojIyMgU29sdXRpb24NCg0KYGBge3J9DQptdSA8LSAxNTAwDQpzIDwtIDMwMA0KaiA8LSAxODAwDQoNCnpzY29yZShqLCBtdSxzKQ0KZiA8LSBwbm9ybShqLCBtZWFuID0gbXUsIHNkID0gcykNCjEwMCooMSAtIGYpDQpgYGANCg0KIyMgUXVlc3Rpb24gNA0KDQpTdXBwb3NlIHRoZSBhdmVyYWdlIG51bWJlciBvZiBGYWNlYm9vayBmcmllbmRzIGlzIGFwcHJveGltYXRlZCB3ZWxsIGJ5IHRoZSBub3JtYWwgbW9kZWwgTihtdSA9IDE1MDAsIHNpZ21hID0gMzAwKS4gQSByYW5kb21seSBzZWxlY3RlZCBwZXJzb24gaXMgYXQgdGhlIDc5Ljk1dGggcGVyY2VudGlsZS4gSG93IG1hbnkgRmFjZWJvb2sgZnJpZW5kcyBkb2VzIHRoaXMgcGVyc29uIGhhdmU/DQoNCiMjIyBTb2x1dGlvbg0KYGBge3J9DQoNCmBgYA0KDQoNCiMjIFF1ZXN0aW9uIDUNCg0KQXQgSGVpbnogZmFjdG9yeSB0aGUgYW1vdW50cyB3aGljaCBnbyBpbnRvIGJvdHRsZXMgb2Yga2V0Y2h1cCBhcmUgc3VwcG9zZWQgdG8gYmUgbm9ybWFsbHkgZGlzdHJpYnV0ZWQgd2l0aCBtZWFuIDM2IG96LiBzdGFuZGFyZCBkZXZpYXRpb24gMC4xMSBvei4gT25jZSBldmVyeSAzMCBtaW51dGVzIGEgYm90dGxlIGlzIHNlbGVjdGVkIGZyb20gdGhlIHByb2R1Y3Rpb24gbGluZSwgYW5kIGl0cyBjb250ZW50cyBhcmUgbm90ZWQgcHJlY2lzZWx5LiBJZiB0aGUgYW1vdW50IG9mIGtldGNodXAgaW4gdGhlIGJvdHRsZSBpcyBiZWxvdyAzNS44IG96LiBvciBhYm92ZSAzNi4yIG96LiwgdGhlbiB0aGUgYm90dGxlIGZhaWxzIHRoZSBxdWFsaXR5IGNvbnRyb2wgaW5zcGVjdGlvbi4gDQoNCjEuIFdoYXQgcGVyY2VudGFnZSBvZiBib3R0bGVzIGhhdmUgbGVzcyB0aGFuIDM1Ljggb3VuY2VzIG9mIGtldGNodXA/DQoyLiBXaGF0IHBlcmNlbnRhZ2Ugb2YgYm90dGxlcyAqKlBBU1MqKiB0aGUgcXVhbGl0eSBjb250cm9sIGluc3BlY3Rpb24/IA0KDQpOT1RFOiBSb3VuZCBzb2x1dGlvbnMgdG8gMiBkZWNpbWFsIHBsYWNlcw0KDQojIyMgU29sdXRpb24NCg0KYGBge3J9DQoNCmBgYA0KDQoNCiMjIFF1ZXN0aW9uIDYNCg0KQm9keSB0ZW1wZXJhdHVyZXMgb2YgaGVhbHRoeSBodW1hbnMgYXJlIGRpc3RyaWJ1dGVkIG5lYXJseSBub3JtYWxseSB3aXRoIG1lYW4gOTguMkYgYW5kIHN0YW5kYXJkIGRldmlhdGlvbiAwLjczRi4gV2hhdCBpcyB0aGUgY3V0b2ZmIGZvciB0aGUgbG93ZXN0IDMlIG9mIGh1bWFuIGJvZHkgdGVtcGVyYXR1cmVzPyAgDQoNCk5PVEU6IFJvdW5kIHNvbHV0aW9uIHRvIDEgZGVjaW1hbCBwbGFjZS4NCg0KIyMjIFNvbHV0aW9uDQoNCg0KYGBge3J9DQoNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRTQTgwMDEgLSBQcmFjdGljYWxzICYgU29sdXRpb25zIg0Kb3V0cHV0OiANCiAgaHRtbF9ub3RlYm9vazoNCiAgICB0b2M6IHRydWUNCiAgICB0b2NfZmxvYXQ6IHRydWUNCi0tLQ0KDQpgYGB7ciBpbmNsdWRlPUZBTFNFfQ0KaWYoIXJlcXVpcmUodGlkeXZlcnNlKSkgaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCmlmKCFyZXF1aXJlKGNhcikpIGluc3RhbGwucGFja2FnZXMoImNhciIpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoY2FyKQ0KYGBgDQoNCiMgQW5hbHlzaW5nIE5vcm1hbGx5IERpc3RyaWJ1dGVkIERhdGENCg0KIyMgUXVlc3Rpb24gMQ0KDQpIZWFkIGxlbmd0aHMgb2YgYnJ1c2h0YWlsIHBvc3N1bXMgZm9sbG93IGEgbmVhcmx5IG5vcm1hbCBkaXN0cmlidXRpb24gd2l0aCBtZWFuIDkyLjYgbW0gYW5kIHN0YW5kYXJkIGRldmlhdGlvbiAzLjYgbW0uIA0KIA0KIDEuIENvbXB1dGUgdGhlIFotc2NvcmVzIGZvciBwb3NzdW1zIHdpdGggaGVhZCBsZW5ndGhzIG9mIDk1LjQgbW0gYW5kIDg1LjggbW0uIA0KIDIuIFVzZSBjYWxjdWxhdGVkIFotc2NvcmVzIHRvIGRldGVybWluZSBob3cgbWFueSBzdGFuZGFyZCBkZXZpYXRpb25zIGFib3ZlIG9yIGJlbG93IHRoZSBtZWFuIG1lYXN1cmVkIGhlYWQgbGVuZ3RocyBvZiB0aGVzZSB0d28gcG9zc3VtcyBmYWxsIA0KIDMuIEhlYWQgbGVuZ3RoIG9mIHdoaWNoIHBvc3N1bSBpcyBtb3JlIHVudXN1YWw/DQogDQogDQoNCiMjIyBTb2x1dGlvbg0KDQpgYGB7cn0NCg0KbXUgPC0gOTIuNg0KcyA8LSAzLjYNCnpzY29yZSA8LSBmdW5jdGlvbih4LCBtdSwgcykgew0KICByZXN1bHQgPC0gKHgtbXUpL3MNCiAgcmV0dXJuKHJlc3VsdCkNCn0NCiMgMS4gQ2FsY3VsYXRpbmcgdGhlIFotc2NvcmVzIGZvciBnaXZlbiBwb3NzdW0gaGVhZCBsZW5ndGhzDQoNCnoxIDwtIHpzY29yZSAoOTUuNCwgbXUsIHMpDQp6MSANCnoyIDwtIHpzY29yZSAoODUuOCwgbXUsIHMpDQpwcmludChwYXN0ZSggIkZpcnN0IHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzIixyb3VuZCh6MSwgZGlnaXRzID0gMiksICIgc3RhbmRhcnQgZGV2aWF0aW9ucyBhYm92ZSB0aGUgbWVhbi4gU2Vjb25kIHBvc3N1bSdzIGhlYWQgbGVuZ3RoIGZhbGxzIiwgcm91bmQoejIsIGRpZ2l0cyA9IDIpLCAiIHN0YW5kYXJ0IGRldmlhdGlvbnMgYmVsb3cgdGhlIG1lYW4iKSkNCmlmKGFicyh6MSk+YWJzKHoyKSl7IHVudXN1YWwgPC0gImZpcnN0In0gZWxzZSB7IHVudXN1YWwgPC0ic2Vjb25kIn0NCnByaW50KHBhc3RlKCJUaGVyZWZvcmUgdGhlIiwgdW51c3VhbCwgInBvc3N1bSBoYXMgYSBtb3JlIHVudXN1YWwgaGVhZCIgKSkNCmBgYA0KDQojIyBRdWVzdGlvbiAyDQoNClN1cHBvc2UgdGhlIGF2ZXJhZ2UgbnVtYmVyIG9mIEZhY2Vib29rIGZyaWVuZHMgaXMgYXBwcm94aW1hdGVkIHdlbGwgYnkgdGhlIG5vcm1hbCBtb2RlbCBOKG11ID0gMTUwMCwgc2lnbWEgPSAzMDApLiBSYW5kb21seSBzZWxlY3RlZCBwZXJzb24gSnVsaWUgaGFzIDE4MDAgZnJpZW5kcy4gDQoNCjEuIFNoZSB3b3VsZCBsaWtlIHRvIGtub3cgd2hhdCBwZXJjZW50aWxlIHNoZSBmYWxscyBhbW9uZyBvdGhlciBGYWNlYm9vayB1c2Vycz8gDQoyLiBXaGF0IGlzIHRoZSBwZXJjZW50YWdlIG9mIHBlb3BsZSB0aGF0IGhhdmUgbW9yZSBmcmllbmRzIHRoYW4gSnVsaWU/DQoNCiMjIyBTb2x1dGlvbg0KDQpgYGB7cn0NCm11IDwtIDE1MDANCnMgPC0gMzAwDQpqIDwtIDE4MDANCg0KenNjb3JlKGosIG11LHMpDQpmIDwtIHBub3JtKGosIG1lYW4gPSBtdSwgc2QgPSBzKQ0KMTAwKigxIC0gZikNCmBgYA0KDQojIyBRdWVzdGlvbiAzDQoNClN1cHBvc2UgdGhlIGF2ZXJhZ2UgbnVtYmVyIG9mIEZhY2Vib29rIGZyaWVuZHMgaXMgYXBwcm94aW1hdGVkIHdlbGwgYnkgdGhlIG5vcm1hbCBtb2RlbCBOKG11ID0gMTUwMCwgc2lnbWEgPSAzMDApLiBXaGF0IGlzIHRoZSBwcm9iYWJpbGl0eSB0aGF0IGEgcmFuZG9tbHkgc2VsZWN0ZWQgcGVyc29uIGhhcyAqKkFUIExFQVNUKiogMTYzMCBmcmllbmRzIG9uIEZhY2Vib29rPyANCg0KTk9URTogUm91bmQgc29sdXRpb24gdG8gMyBkZWNpbWFsIHBsYWNlcy4NCg0KIyMjIFNvbHV0aW9uDQoNCmBgYHtyfQ0KbXUgPC0gMTUwMA0KcyA8LSAzMDANCmogPC0gMTYzMA0KDQp6c2NvcmUoaiwgbXUscykNCmYgPC0gcG5vcm0oaiwgbWVhbiA9IG11LCBzZCA9IHMpDQpyb3VuZChmLCBkaWdpdHMgPSAzKQ0KYGBgDQoNCiMjIFF1ZXN0aW9uIDQNCg0KU3VwcG9zZSB0aGUgYXZlcmFnZSBudW1iZXIgb2YgRmFjZWJvb2sgZnJpZW5kcyBpcyBhcHByb3hpbWF0ZWQgd2VsbCBieSB0aGUgbm9ybWFsIG1vZGVsIE4obXUgPSAxNTAwLCBzaWdtYSA9IDMwMCkuIEEgcmFuZG9tbHkgc2VsZWN0ZWQgcGVyc29uIGlzIGF0IHRoZSA3OS45NXRoIHBlcmNlbnRpbGUuIEhvdyBtYW55IEZhY2Vib29rIGZyaWVuZHMgZG9lcyB0aGlzIHBlcnNvbiBoYXZlPw0KDQojIyMgU29sdXRpb24NCmBgYHtyfQ0KbXUgPC0gMTUwMA0KcyA8LSAzMDANCmogPC0gMTYzMA0KcSA8LSAgMC43OTk1DQoNCmYgPC0gcW5vcm0ocSwgbWVhbiA9IG11LCBzZCA9IHMpDQpmDQpgYGANCg0KDQojIyBRdWVzdGlvbiA1DQoNCkF0IEhlaW56IGZhY3RvcnkgdGhlIGFtb3VudHMgd2hpY2ggZ28gaW50byBib3R0bGVzIG9mIGtldGNodXAgYXJlIHN1cHBvc2VkIHRvIGJlIG5vcm1hbGx5IGRpc3RyaWJ1dGVkIHdpdGggbWVhbiAzNiBvei4gc3RhbmRhcmQgZGV2aWF0aW9uIDAuMTEgb3ouIE9uY2UgZXZlcnkgMzAgbWludXRlcyBhIGJvdHRsZSBpcyBzZWxlY3RlZCBmcm9tIHRoZSBwcm9kdWN0aW9uIGxpbmUsIGFuZCBpdHMgY29udGVudHMgYXJlIG5vdGVkIHByZWNpc2VseS4gSWYgdGhlIGFtb3VudCBvZiBrZXRjaHVwIGluIHRoZSBib3R0bGUgaXMgYmVsb3cgMzUuOCBvei4gb3IgYWJvdmUgMzYuMiBvei4sIHRoZW4gdGhlIGJvdHRsZSBmYWlscyB0aGUgcXVhbGl0eSBjb250cm9sIGluc3BlY3Rpb24uIA0KDQoxLiBXaGF0IHBlcmNlbnRhZ2Ugb2YgYm90dGxlcyBoYXZlIGxlc3MgdGhhbiAzNS44IG91bmNlcyBvZiBrZXRjaHVwPw0KMi4gV2hhdCBwZXJjZW50YWdlIG9mIGJvdHRsZXMgKipQQVNTKiogdGhlIHF1YWxpdHkgY29udHJvbCBpbnNwZWN0aW9uPyANCg0KTk9URTogUm91bmQgc29sdXRpb25zIHRvIDIgZGVjaW1hbCBwbGFjZXMNCg0KIyMjIFNvbHV0aW9uDQoNCmBgYHtyfQ0KbXUgPC0gMzYNCnMgPC0gMC4xMQ0KbGIgPC0gIDM1LjgNCnViIDwtIDM2LjINCg0KDQpwbCA8LSBwbm9ybShsYiwgbWVhbiA9IG11LCBzZCA9IHMpDQpwcmludChwYXN0ZShyb3VuZCgxMDAqcGwsIGRpZ2l0cyA9IDIpLCAiJSIpKQ0KcHUgPC0gcG5vcm0odWIsIG1lYW4gPSBtdSwgc2QgPSBzKQ0KcGFzcyA8LSBwdSAtIHBsDQpwcmludChwYXN0ZShyb3VuZCgxMDAqcGFzcywgZGlnaXRzID0gMiksICIlIikpDQpgYGANCg0KDQojIyBRdWVzdGlvbiA2DQoNCkJvZHkgdGVtcGVyYXR1cmVzIG9mIGhlYWx0aHkgaHVtYW5zIGFyZSBkaXN0cmlidXRlZCBuZWFybHkgbm9ybWFsbHkgd2l0aCBtZWFuIDk4LjJGIGFuZCBzdGFuZGFyZCBkZXZpYXRpb24gMC43M0YuIFdoYXQgaXMgdGhlIGN1dG9mZiBmb3IgdGhlIGxvd2VzdCAzJSBvZiBodW1hbiBib2R5IHRlbXBlcmF0dXJlcz8gIA0KDQpOT1RFOiBSb3VuZCBzb2x1dGlvbiB0byAxIGRlY2ltYWwgcGxhY2UuDQoNCiMjIyBTb2x1dGlvbiANCg0KDQpgYGB7cn0NCm11IDwtOTguMg0KcyA8LSAwLjczDQpqIDwtIDAuMDMNCg0KZiA8LSBxbm9ybShqLCBtZWFuID0gbXUsIHNkID0gcykNCnJvdW5kKGYsIGRpZ2l0cyA9IDEpDQoNCmRpc3RyIDwtIHJub3JtKDEwMDAsIG1lYW4gPSBtdSwgc2QgPSBzKQ0KZGlzdHIgPC0gYXMuZGF0YS5mcmFtZShkaXN0cikNCmdncGxvdChkaXN0ciwgYWVzKHggPSBkaXN0cikpICsgZ2VvbV9kZW5zaXR5KCkgKyB0aGVtZV9idygpICsgeGxhYigiVGVtcGVyYXR1cmVzLCBGIikgKyBnZW9tX3ZsaW5lKHhpbnRlcmNlcHQ9ZiwgbGluZXR5cGU9ImRhc2hlZCIsIGNvbG9yID0gIiMwMDY2Q0MiKQ0KYGBgDQoNCg0KDQo=</div>
 
 
 </div>

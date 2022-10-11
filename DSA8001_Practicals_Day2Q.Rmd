@@ -45,7 +45,7 @@ if(abs(z1)>abs(z2)){ unusual <- "first"} else { unusual <-"second"}
 print(paste("Therefore the", unusual, "possum has a more unusual head" ))
 ```
 
-## Question 2  
+## Question 2
 
 Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). Randomly selected person Julie has 1800 friends. 
 
@@ -75,11 +75,11 @@ NOTE: Round solution to 3 decimal places.
 ```{r}
 mu <- 1500
 s <- 300
-j <- 1800
+j <- 1630
 
 zscore(j, mu,s)
 f <- pnorm(j, mean = mu, sd = s)
-100*(1 - f)
+round(f, digits = 3)
 ```
 
 ## Question 4
@@ -88,7 +88,13 @@ Suppose the average number of Facebook friends is approximated well by the norma
 
 ### Solution
 ```{r}
+mu <- 1500
+s <- 300
+j <- 1630
+q <-  0.7995
 
+f <- qnorm(q, mean = mu, sd = s)
+f
 ```
 
 
@@ -104,7 +110,17 @@ NOTE: Round solutions to 2 decimal places
 ### Solution
 
 ```{r}
+mu <- 36
+s <- 0.11
+lb <-  35.8
+ub <- 36.2
 
+
+pl <- pnorm(lb, mean = mu, sd = s)
+print(paste(round(100*pl, digits = 2), "%"))
+pu <- pnorm(ub, mean = mu, sd = s)
+pass <- pu - pl
+print(paste(round(100*pass, digits = 2), "%"))
 ```
 
 
@@ -114,9 +130,21 @@ Body temperatures of healthy humans are distributed nearly normally with mean 98
 
 NOTE: Round solution to 1 decimal place.
 
-### Solution
+### Solution 
 
 
 ```{r}
+mu <-98.2
+s <- 0.73
+j <- 0.03
 
+f <- qnorm(j, mean = mu, sd = s)
+round(f, digits = 1)
+
+distr <- rnorm(1000, mean = mu, sd = s)
+distr <- as.data.frame(distr)
+ggplot(distr, aes(x = distr)) + geom_density() + theme_bw() + xlab("Temperatures, F") + geom_vline(xintercept=f, linetype="dashed", color = "#0066CC")
 ```
+
+
+
