@@ -45,7 +45,7 @@ if(abs(z1)>abs(z2)){ unusual <- "first"} else { unusual <-"second"}
 print(paste("Therefore the", unusual, "possum has a more unusual head" ))
 ```
 
-## Question 2
+## Question 2  
 
 Suppose the average number of Facebook friends is approximated well by the normal model N(mu = 1500, sigma = 300). Randomly selected person Julie has 1800 friends. 
 
