@@ -1,0 +1,222 @@
+---
+title: "DSA8001 - Practicals & Solutions"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r include=FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(car)) install.packages("car")
+library(tidyverse)
+library(car)
+```
+
+
+# Statistical Inference
+
+## Test of single mean (mu) using the Z statistic
+
+### Question 1
+
+The mean content of a sample of 120 bottles of milk from one days output of a dairy was found to be 0.9975 litres, while the standard deviation of the sample was 0.012 litres. investigate if there is evidence to suggest that the mean content of that days output is different from 1 litre.
+
+#### Solution
+
+```{r echo=FALSE}
+mu <-  0.9975
+n <-  120
+sigma <- 0.012
+mu0 <- 1
+a <- 0.05
+
+#H0: mu = mu0
+#H1: mu != mu0 
+
+zcrit1mean <-  function( xbar, mu, sigma, n) {
+ zcrit <-  (xbar - mu)/sqrt((sigma^2)/n)
+ return(zcrit)
+}
+
+Z <- zcrit1mean(mu, mu0, 0.012, 120)
+Z
+
+if (abs(Z)>1.96) {print("Reject Null Hypothesis")} else {print("Accept Null Hypothesis")}
+
+#P(|Z|> 2.28)
+#P(|Z| <= 2.28)
+
+prob <-  2*pnorm(Z)
+prob
+if (prob <= 0.05){print("Test is significant")} else
+{print("Test is insignificant")}
+z_crit <- qnorm(0.975)
+z_crit
+#calculating 95% CI
+CI <- c(
+  mu - z_crit*sqrt((sigma^2)/n), mu + z_crit*sqrt((sigma^2)/n)
+)
+print(paste(round(CI, digits = 4)))
+```
+
+## Test of the comparison of two means using the Z statistic
+
+### Question 1
+
+Suppose we wish to determine if there is a difference in mean weight between the two sexes in a particular bird species, at a 5% significance level. The following data were obtained: 
+
+* Male sample size n1 = 125, mean weight x1_bar = 92.31 g, and variaiance var1 = 56.22 g^2
+* Female sample size n2 = 85, mean weight x2_bar = 88.84 g, and variaiance var2 = 65.41 g^2
+
+If significant, give a 95% CI for mu1 - mu2.
+
+#### Solution
+```{r echo=FALSE}
+#H0: mu1 = mu2
+#H1: mu1 != mu2
+n1 <- 125
+x1bar <- 92.31
+var1 <- 56.22
+n2 <- 85
+x2bar <- 88.84
+var2 <- 65.41
+a <- 0.05
+cl <-  0.95
+zcrit2mean <-  function(x1bar, var1, n1 ,x2bar, var2, n2) {
+ zstat <-  ((x1bar - x2bar) - 0)/sqrt(((var1)/n1)+(var2/n2))
+ return(zstat)
+}
+
+Z <- zcrit2mean(x1bar, var1, n1, x2bar, var2, n2)
+Z
+if (abs(Z)>1.96) {print("Reject Null Hypothesis")} else {print("Accept Null Hypothesis")}
+prob <-  pnorm(Z, lower.tail = FALSE)
+prob
+if (prob <= 0.05 & prob>0.01){print("Test is significant")} else if (prob <= 0.01)
+{"The test is VERY significant"}else
+{print("Test is insignificant")}
+confinterval <- function(x1bar, x2bar, var1, var2, n1, n2){
+lb <- ((x1bar - x2bar) + 1.96*sqrt((var1/n1) + (var2/n2)))                                       
+ub <- ((x1bar - x2bar) - 1.96*sqrt((var1/n1) + (var2/n2)))
+cc <- c(lb, ub)
+return(cc)
+}
+interval <- c(confinterval(x1bar, x2bar, var1, var2, n1, n2))
+print(paste("The", cl*100,"% Confidence interval is" , round(interval[2],digits = 2), ":", round(interval[1], digits = 2)))
+
+z_crit <- qnorm(0.975)
+z_crit
+```
+
+## Test of single proportion
+
+### Question 1
+
+In a random sample of 120 graduates, 78 spent 3 years at university and 42 more than 3 years. Test the hypothesis that 70% of graduates obtain degrees in 3 years. Give a 95% c.i. for the population proportion.
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+
+**H0: p1 = 0.7**
+**H1: p1 != 0.7**
+```{r echo=FALSE}
+n <- 120
+p1 <-  78
+p2 <-  42
+#H0: p1 = 0.7
+##H1: p1 != 0.7
+cl <-  0.95
+z_crit <- qnorm(0.975)
+phat <- p1/n
+zstatprop <- function(p1, n){
+  zstat <-  (phat - 0.7)/(sqrt((0.7*0.3)/n))
+    return(zstat)}
+Z <- zstatprop(p1,n)
+
+print(paste("Z statistic =", round(zstatprop(p1,n), digits = 3)))
+z_crit <- qnorm(0.975)
+z_crit
+prob <- 2*pnorm(Z, lower.tail = TRUE)
+if (abs(Z)>z_crit) {print("Reject Null Hypothesis")} else {print("Accept Null Hypothesis")}
+# Checking for test significance 
+if (prob <= 0.05 & prob>0.01){print("Test is significant")} else if (prob <= 0.01)
+{"The test is VERY significant"}else
+{print("Test is insignificant")}
+paste(prob)
+confinterval <- function(phat, n){
+lb <-phat + 1.96*sqrt((phat*(1-phat)/n))
+ub <- phat - 1.96*sqrt((phat*(1-phat)/n))
+cc <- c(lb, ub)
+return(cc)
+}
+
+interval <- c(confinterval(phat, n))
+print(paste("The", cl*100,"% Confidence interval is" , round(interval[2],digits = 2), ":", round(interval[1], digits = 2)))
+```
+
+
+
+
+
+## Test of two proportions
+
+### Question 1
+
+We wish to compare the germination rates of spinach seeds for two different methods of preparation:
+
+* __Method A:__ 80 seeds sown, 65 germinate
+* __Method B:__ 90 seeds sown, 80 germinate
+
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+**H0: p1 = p2**
+**H1: p1 != p2**
+```{r echo=FALSE}
+n1 <- 80
+p1 <-  65
+p2 <-  80
+n2 <- 90
+#H0: p1 = p2
+##H1: p1 != p2
+cl <-  0.95
+z_crit <- qnorm(0.975)
+phat <- (p1+p2)/(n1+n2)
+zstat2prop <- function(phat, n1, n2, p1, p2){
+  zstat <-  ((p1/n1) - (p2/n2))/(sqrt((phat*(1-phat)*((1/n1)+(1/n2)))))
+    return(zstat)}
+Z <- zstat2prop(phat,n1, n2, p1, p2)
+
+paste(round(Z, 3))
+z_crit <- qnorm(0.975)
+z_crit
+prob <- 2*pnorm(Z, lower.tail = TRUE)
+prob
+if (abs(Z)>z_crit) {print("Reject Null Hypothesis")} else {print("Accept Null Hypothesis")}
+# Checking for test significance 
+if (prob <= 0.05 & prob>0.01){print("Test is significant")} else if (prob <= 0.01)
+{"The test is VERY significant"}else
+{print("Test is insignificant")}
+
+confinterval <- function(phat, n){
+lb <-phat + 1.96*sqrt((phat*(1-phat)/n))
+ub <- phat - 1.96*sqrt((phat*(1-phat)/n))
+cc <- c(lb, ub)
+return(cc)
+}
+
+interval <- c(confinterval(phat, n))
+print(paste("The", cl*100,"% Confidence interval is" , round(interval[2],digits = 2), ":", round(interval[1], digits = 2)))
+```
+
+## Hypothesis in Q1 tested with $$\chi$$-square test
+
+
+```{r echo=FALSE}
+
+
+```
+
