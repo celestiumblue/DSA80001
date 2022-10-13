@@ -1,0 +1,252 @@
+---
+title: "DSA8001 - Practicals & Solutions"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+```{r include=FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(car)) install.packages("car")
+library(tidyverse)
+library(car)
+```
+
+
+# Statistical Inference
+
+## Tests based on the t-distribution (Single Mean)
+
+### Question 1
+
+What proportion of the t-distribution with 18 degrees of freedom falls below -2.10? 
+
+NOTE: Round solution to 3 decimal places.
+
+
+
+#### Solution
+
+```{r}
+df <- 18
+t<- -2.10
+
+prop <- pt(t, df)
+pt(t, df)%>% round(3)
+paste(round(100*prop, digits = 3), "% of the t-distribution falls below ", t)
+```
+
+### Question 2
+
+What proportion of the t-distribution with 20 degrees of freedom falls above 1.65? 
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+```{r}
+df <- 20
+t<- 1.65
+
+prop <- pt(t, df, lower.tail = F)
+pt(t, df)%>% round(3)
+paste(round(100*prop, digits = 3), "% of the t-distribution falls above ", t)
+```
+
+
+### Question 3
+
+What proportion of the t-distribution with 2 degrees of freedom falls 3 standard deviations from the mean (above or below)?
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+```{r}
+df <- 2
+t<- 3
+
+prop <- pt(t, df, lower.tail = T)
+pt(t, df)%>% round(3)
+paste(round(100*prop, digits = 3), "% of the t-distribution falls above or below ", t)
+```
+
+
+### Question 4
+
+The temperature of warm water springs in a basin is reported to have a mean of 38C. A sample of 12 springs from the west end of the basin had mean temperature 39.4 and variance 1.92. 
+
+1. Have springs at the west end a greater mean temperature? 
+2. Have springs at the west end a different mean temperature? Give a 95% c.i. for the mean temperature.
+
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+```{r}
+mu0 <-  38
+n <- 12
+
+xbar <- 39.4
+var <- 1.92
+
+#H0: mu0 = xbar
+#H1: mu0 != xbar
+
+ttest <-  function(xbar, mu0, ssq,n){
+  t <- (xbar - mu0)/(sqrt(ssq/n))
+  return(t)
+}
+t <- ttest(xbar, mu0, var, n)
+t
+t_crit <- qt(0.975, df = n-1)
+p_val <- 2*pt(t, df = n, lower.tail = T)
+p_val
+t_crit
+#Reject H0
+confidence_interval <- c((xbar-(t*(sqrt(var/n)))), (xbar+(t*(sqrt(var/n)))))
+
+print(confidence_interval)
+```
+
+
+### Question 5
+
+Sweets producing company was interested in the mean net weight of contents in an advertised 80-gram pack. The manufacturer has precisely weighed the contents of 24 randomly selected 80-gram packs from different stores and recorded the weights as follows:
+
+```{r}
+measured_weights <- c(87.7,80.01,77.28,78.76,81.52,74.2,80.71,79.5,77.87,81.94,80.7,
+               82.32,75.78,80.19,83.91,79.4,77.52,77.62,81.4,74.89,82.95,
+               73.59,77.92,77.18)
+```
+
+1. Investigate the hypothesis that the sweets content in the packages is lesser than what is claimed on the package.
+2. Investigate the hypothesis that the sweets content in the packages is lesser than what is claimed on the package. Give a 95% c.i. for the mean weight.
+
+NOTE: Round solution to 3 decimal places.
+
+#### Solution
+
+```{r}
+#H0: mu <= 80
+#H1: mu > 80
+n <- length(measured_weights)
+cl <-  0.95
+t.test(measured_weights, alternative = "greater")
+```
+
+## Tests based on the t-distribution (Paired Comparison)
+
+### Question 1
+
+Consider an experiment to compare the effects of two sleeping drugs A and B. There are 10 subjects and each subject receives treatment with each of the two drugs (the order of treatment being randomized). The number of hours slept by each subject is recorded. Is there any difference between the effects of the two drugs? Give a 95% c.i. for the unknown mean difference.
+
+NOTE: Round solution to 3 decimal places.
+
+```{r}
+df <- data.frame(
+  Subject_ID = 1:10,
+  Hours_Sleeping_A = c(9.9, 8.8, 9.1, 8.1, 7.9, 12.4, 13.5, 9.6, 12.6, 11.4),
+  Hours_Sleeping_B = c(8.7, 6.4, 7.8, 6.8, 7.9, 11.4, 11.7, 8.8, 8.0, 10.0))
+  
+
+
+```
+
+#### Solution
+
+```{r}
+#H0: mu1 = mu2
+#H1: mu1 != mu2
+
+t.test(df$Hours_Sleeping_A, df$Hours_Sleeping_B, alternative = "two.sided", paired = T)
+```
+
+## Tests based on the t-distribution (Independent Samples)
+
+### Question 1
+
+Two methods of oxidation care are used in an industrial process. Repeated measurements of the oxidation time are made to test the hypothesis that the oxidation time of method 1 is different than that of method 2 on average. 
+
+* __Method 1:__ Sample size = 9, Sample mean = 41.3, Sample Variance = 20.7
+* __Method 2:__ Sample size = 8, Sample mean = 48.9, Sample Variance = 34.2
+
+Assuming that the unknown variances are equal, investigate if there is there any difference between the oxidation times of the two methods? Give a 95% c.i. for the unknown mean difference.
+
+#### Solution
+***H0:*** mu1=mu2 ∋ mu1 - mu 2=0
+***H1:*** mu1!=mu2 ∋ mu1 - mu 2!=0, var1 = var2
+```{r}
+#H0: mu1=mu2 ∋ mu1 - mu 2=0
+#H1: mu1!=mu2 ∋ mu1 - mu 2!=0, var1 = var2
+
+n1 <-  9
+n2 <-  8
+mu1 <-  41.3
+mu2 <-  48.94
+sigma1sq <- 20.7
+sigma2sq <- 34.2
+mudiff <- mu1-mu2
+df <- n1 + n2 -2
+ssq_pooled <- (((n1-1)*sigma1sq) + ((n2-1)*sigma2sq))/((n1-1)+(n2-1))
+
+ssq_pooled
+t <- (mu1 - mu2)/sqrt(ssq_pooled*((1/n1)+(1/n2)))
+t
+t_crit <- qt(0.975, df)
+t_crit <- round(t_crit, digits = 1)
+paste("T critical is", t_crit)
+
+p_val <- 2*pt(t, df)
+paste("P value is", p_val)
+if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
+if (p_val <= 0.01) {print("Test is highly significant")} else if (p_val <= 0.05) {print("Test is significant")} else {print("Test is not significant")}
+confidence_interval <- c((mudiff-(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))),(mudiff+(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))))
+print(paste("The", cl*100,"% Confidence interval is" , round(confidence_interval[1],digits = 2), ":", round(confidence_interval[2], digits = 2)))
+
+```
+
+
+### Question 2
+
+Two methods of oxidation care are used in an industrial process. Repeated measurements of the oxidation time are made to test the hypothesis that the oxidation time of method 1 is different than that of method 2 on average. The following measurements were recorded:
+
+* __Method 1:__ `c(29.915269, 8.920123, 36.647273, 54.038639, 37.583526, 19.860171, 13.470132, 43.139612, 39.825299)`
+* __Method 2:__ `c(28.970122, 43.563546, 4.161069, 39.774523, 5.705720, 93.562336,  3.801087, 79.906087)`
+
+Assuming that the unknown variances are equal, investigate if there is there any difference between the oxidation times of the two methods? Give a 95% c.i. for the unknown mean difference.
+
+#### Solution
+***H0:*** mu1=mu2 ∋ mu1 - mu 2=0
+***H1:*** mu1!=mu2 ∋ mu1 - mu 2!=0, var1 = var2
+
+```{r}
+Method1 <-c(29.915269, 8.920123, 36.647273, 54.038639, 37.583526, 19.860171, 13.470132, 43.139612, 39.825299)
+Method2 <-c(28.970122, 43.563546, 4.161069, 39.774523, 5.705720, 93.562336,  3.801087, 79.906087)
+mu1 <- mean(Method2)
+mu2 <- mean(Method1)
+sigma1sq <- var(Method2)
+sigma2sq <- var(Method1)
+n1 <- length(Method2)
+n2 <- length(Method1)
+
+mudiff <- mu1-mu2
+df <- n1 + n2 -2
+ssq_pooled <- (((n1-1)*sigma1sq) + ((n2-1)*sigma2sq))/((n1-1)+(n2-1))
+
+ssq_pooled
+t <- (mu1 - mu2)/sqrt(ssq_pooled*((1/n1)+(1/n2)))
+t
+t_crit <- qt(0.975, df)
+t_crit <- round(t_crit, digits = 1)
+paste("T critical is", t_crit)
+
+p_val <- pt(t, df)
+paste("P value is", p_val)
+if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
+if (p_val <= 0.01) {print("Test is highly significant")} else if (p_val <= 0.05) {print("Test is significant")} else {print("Test is not significant")}
+confidence_interval <- c((mudiff-(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))),(mudiff+(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))))
+print(paste("The", cl*100,"% Confidence interval is" , round(confidence_interval[1],digits = 2), ":", round(confidence_interval[2], digits = 2)))
+```
+
