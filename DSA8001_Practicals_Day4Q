@@ -90,7 +90,9 @@ n <- 12
 
 xbar <- 39.4
 var <- 1.92
-
+#H0: mu0 > xbar
+#H1: mu0 <= xbar
+#&
 #H0: mu0 = xbar
 #H1: mu0 != xbar
 
@@ -98,12 +100,19 @@ ttest <-  function(xbar, mu0, ssq,n){
   t <- (xbar - mu0)/(sqrt(ssq/n))
   return(t)
 }
-t <- ttest(xbar, mu0, var, n)
+t <- round(ttest(xbar, mu0, var, n), digits = 2)
 t
+t_critg <- qt(0.95, df = n-1)
+t_critg 
+if(t_critg<t){print("T statistic lies in the critical region")}
 t_crit <- qt(0.975, df = n-1)
-p_val <- 2*pt(t, df = n, lower.tail = T)
+1-pt(t, df= 11)
+p_val <- pt(t, df = 11, lower.tail = F)
+p_val
+p_val <- 2*pt(t, df = 11, lower.tail = F)
 p_val
 t_crit
+
 #Reject H0
 confidence_interval <- c((xbar-(t*(sqrt(var/n)))), (xbar+(t*(sqrt(var/n)))))
 
@@ -192,14 +201,15 @@ df <- n1 + n2 -2
 ssq_pooled <- (((n1-1)*sigma1sq) + ((n2-1)*sigma2sq))/((n1-1)+(n2-1))
 
 ssq_pooled
-t <- (mu1 - mu2)/sqrt(ssq_pooled*((1/n1)+(1/n2)))
+t <- (mu1 - mu2)/(sqrt(ssq_pooled*((1/n1)+(1/n2))))
 t
 t_crit <- qt(0.975, df)
 t_crit <- round(t_crit, digits = 1)
 paste("T critical is", t_crit)
 
 p_val <- 2*pt(t, df)
-paste("P value is", p_val)
+paste("P value is", p_val)#
+if (abs(p_val) > 1){ "P value is invalid"}
 if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
 if (p_val <= 0.01) {print("Test is highly significant")} else if (p_val <= 0.05) {print("Test is significant")} else {print("Test is not significant")}
 confidence_interval <- c((mudiff-(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))),(mudiff+(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))))
@@ -224,26 +234,27 @@ Assuming that the unknown variances are equal, investigate if there is there any
 ```{r}
 Method1 <-c(29.915269, 8.920123, 36.647273, 54.038639, 37.583526, 19.860171, 13.470132, 43.139612, 39.825299)
 Method2 <-c(28.970122, 43.563546, 4.161069, 39.774523, 5.705720, 93.562336,  3.801087, 79.906087)
-mu1 <- mean(Method2)
-mu2 <- mean(Method1)
-sigma1sq <- var(Method2)
-sigma2sq <- var(Method1)
-n1 <- length(Method2)
-n2 <- length(Method1)
-
+mu1 <- mean(Method1)
+mu2 <- mean(Method2)
+sigma1sq <- var(Method1)
+sigma2sq <- var(Method2)
+n1 <- length(Method1)
+n2 <- length(Method2)
+cl <-  0.95
 mudiff <- mu1-mu2
 df <- n1 + n2 -2
 ssq_pooled <- (((n1-1)*sigma1sq) + ((n2-1)*sigma2sq))/((n1-1)+(n2-1))
 
 ssq_pooled
-t <- (mu1 - mu2)/sqrt(ssq_pooled*((1/n1)+(1/n2)))
+t <- (mu1 - mu2)/(sqrt(ssq_pooled*((1/n1)+(1/n2))))
 t
 t_crit <- qt(0.975, df)
 t_crit <- round(t_crit, digits = 1)
 paste("T critical is", t_crit)
 
-p_val <- pt(t, df)
+p_val <- 2*pt(t, df, lower.tail =  F)
 paste("P value is", p_val)
+if (abs(p_val) > 1){ "P value is out of bounds"}
 if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
 if (p_val <= 0.01) {print("Test is highly significant")} else if (p_val <= 0.05) {print("Test is significant")} else {print("Test is not significant")}
 confidence_interval <- c((mudiff-(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))),(mudiff+(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))))
