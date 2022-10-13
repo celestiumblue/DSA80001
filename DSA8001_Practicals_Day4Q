@@ -130,19 +130,28 @@ measured_weights <- c(87.7,80.01,77.28,78.76,81.52,74.2,80.71,79.5,77.87,81.94,8
                73.59,77.92,77.18)
 ```
 
-1. Investigate the hypothesis that the sweets content in the packages is lesser than what is claimed on the package.
-2. Investigate the hypothesis that the sweets content in the packages is lesser than what is claimed on the package. Give a 95% c.i. for the mean weight.
+1. Investigate the hypothesis that the sweets content in the packages is lesser *different than what is claimed on the package.
+2. Investigate the hypothesis that the sweets content in the packages is lesser *different than what is claimed on the package. Give a 95% c.i. for the mean weight.
 
 NOTE: Round solution to 3 decimal places.
 
 #### Solution
 
 ```{r}
-#H0: mu <= 80
-#H1: mu > 80
+
+#H0: mu = 80
+#H1: mu < 80
+weights_mean <- mean(measured_weights)
+weights_var <- var(measured_weights)
 n <- length(measured_weights)
+df <- n - 1
+t <- round(ttest(xbar, weights_mean,weights_var, n), digits = 3)
+t
 cl <-  0.95
-t.test(measured_weights, alternative = "greater")
+p_val <- pt(t, df=df, lower.tail =  T)
+round(p_val, digits = 3)
+t.test(measured_weights, mu = 80, alternative = "less")
+
 ```
 
 ## Tests based on the t-distribution (Paired Comparison)
@@ -232,6 +241,9 @@ Assuming that the unknown variances are equal, investigate if there is there any
 ***H1:*** mu1!=mu2 ∋ mu1 - mu 2!=0, var1 = var2
 
 ```{r}
+if(!require(crayon)) install.packages("crayon")
+library(crayon)
+
 Method1 <-c(29.915269, 8.920123, 36.647273, 54.038639, 37.583526, 19.860171, 13.470132, 43.139612, 39.825299)
 Method2 <-c(28.970122, 43.563546, 4.161069, 39.774523, 5.705720, 93.562336,  3.801087, 79.906087)
 mu1 <- mean(Method1)
@@ -254,10 +266,51 @@ paste("T critical is", t_crit)
 
 p_val <- 2*pt(t, df, lower.tail =  F)
 paste("P value is", p_val)
-if (abs(p_val) > 1){ "P value is out of bounds"}
+if (abs(p_val) > 1) {cat(red("P-value is out of bounds!\n"))}
 if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
 if (p_val <= 0.01) {print("Test is highly significant")} else if (p_val <= 0.05) {print("Test is significant")} else {print("Test is not significant")}
 confidence_interval <- c((mudiff-(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))),(mudiff+(t_crit*(sqrt((ssq_pooled*((1/n1)+(1/n2))))))))
 print(paste("The", cl*100,"% Confidence interval is" , round(confidence_interval[1],digits = 2), ":", round(confidence_interval[2], digits = 2)))
+```
+## Tests based on the Chi-Square distribution
+
+### Question 1
+
+What proportion of the chi-square distribution with 9 degrees of freedom falls above 17?
+
+```{r}
+chisq <-  17
+df <- 9
+paste(round(100*pchisq(17, 9, lower.tail = FALSE), digits = 3), "% of the chisq-distribution w/ df = ", df, "falls above ", chisq)
+```
+
+
+### Question 2
+
+The geneticist Mendel evolved the theory that for a certain type of pea, the characteristics Round and Yellow, R and Green, Angular and Y, A and G occurred in the ratio 9:3:3:1. He classified 556 seeds and the observed frequencies were 315, 108, 101 and 32. Test Mendel's theory on the basis of these data.
+
+**H0**: P1 = 9/16, P2 = 3/16, P3 = 3/16, P4 = 1/16
+**H1**: P1 != 9/16, P2 != 3/16, P3 != 3/16, P4 != 1/16
+
+```{r}
+Expected_vals <- c( 9/16 * 556,3/16 * 556,3/16 * 556,1/16 * 556 )
+Observed_vals <- c( 315, 108, 101, 32 )
+phi_vec <- c(1:4)
+for (i  in 1:4) {phi_vec[i] <-((Observed_vals[i]-Expected_vals[i])^2)/Expected_vals[i]}
+phisq <- sum(phi_vec)
+round(phisq, digits = 3)
+qchisq(0.95, 4, lower.tail = T)
+pchisq(phisq, 4, lower.tail = T)
+```
+
+
+### Question 3
+**H0**: P1 = 9/16, P2 = 3/16, P3 = 3/16, P4 = 1/16
+**H1**: P1 != 9/16, P2 != 3/16, P3 != 3/16, P4 != 1/16
+
+In a random sample of 120 graduates, 78 spent 3 years at University and 42 more than 3 years. Test hypothesis that 70% obtain degree in 3 years. 
+
+```{r}
+
 ```
 
