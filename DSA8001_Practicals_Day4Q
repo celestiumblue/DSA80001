@@ -285,7 +285,7 @@ paste(round(100*pchisq(17, 9, lower.tail = FALSE), digits = 3), "% of the chisq-
 ```
 
 
-### Question 2
+### Question 2 
 
 The geneticist Mendel evolved the theory that for a certain type of pea, the characteristics Round and Yellow, R and Green, Angular and Y, A and G occurred in the ratio 9:3:3:1. He classified 556 seeds and the observed frequencies were 315, 108, 101 and 32. Test Mendel's theory on the basis of these data.
 
@@ -299,14 +299,15 @@ phi_vec <- c(1:4)
 for (i  in 1:4) {phi_vec[i] <-((Observed_vals[i]-Expected_vals[i])^2)/Expected_vals[i]}
 phisq <- sum(phi_vec)
 round(phisq, digits = 3)
-qchisq(0.95, 4, lower.tail = T)
-pchisq(phisq, 4, lower.tail = T)
+qchisq(0.95, 3, lower.tail = F)
+pchisq(phisq, 3, lower.tail = F)
 ```
 
 
 ### Question 3
-**H0**: P1 = 9/16, P2 = 3/16, P3 = 3/16, P4 = 1/16
-**H1**: P1 != 9/16, P2 != 3/16, P3 != 3/16, P4 != 1/16
+**H0**: p1 = 0.7
+**H01**: p1 != 0.7
+
 
 In a random sample of 120 graduates, 78 spent 3 years at University and 42 more than 3 years. Test hypothesis that 70% obtain degree in 3 years. 
 
@@ -316,9 +317,9 @@ Observed_vals <- c( 78, 42)
 phi_vec <- c(1:2)
 for (i  in 1:2) {phi_vec[i] <-((abs(Observed_vals[i]-Expected_vals[i])-0.5)^2)/Expected_vals[i]}
 phisq <- sum(phi_vec)
-round(phisq, digits = 3)
-qchisq(0.95, 1, lower.tail = T)
-pchisq(phisq, 1, lower.tail = T)
+paste("Phi coef. ", round(phisq, digits = 3))
+paste("Chi crit.", qchisq(0.95, 1, lower.tail = F))
+paste("P-value.",pchisq(phisq, 1, lower.tail = F))
 ```
 
 ```{r Homework}
@@ -335,8 +336,10 @@ tdfe <-  (mu_mid-mu_sur)/sqrt((MSE/n_mid)+(MSE/n_sur))
 p_Val <- 2 * pt(tdfe, df = df, lower.tail = F )
 
 p_Val
-if ( alpha_bonferroni > p_Val){"Reject H0, there is evidence that there is difference in aldrin distributions in given groups"} else {"Accept H0, group means are not different"}
+if ( alpha_bonferroni > p_Val){"Reject H0 => there is evidence that there is difference in aldrin distributions in given groups"} else {"Accept H0 => group means are not different"}
 
 
 ```
+
+
 
