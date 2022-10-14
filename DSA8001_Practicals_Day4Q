@@ -264,7 +264,7 @@ t_crit <- qt(0.975, df)
 t_crit <- round(t_crit, digits = 1)
 paste("T critical is", t_crit)
 
-p_val <- 2*pt(t, df, lower.tail =  F)
+p_val <- 2*pt(t, df = df, lower.tail =  T)
 paste("P value is", p_val)
 if (abs(p_val) > 1) {cat(red("P-value is out of bounds!\n"))}
 if (abs(t)>t_crit){print ("H0 is rejected")} else {print("H0 is accepted")}
@@ -311,6 +311,32 @@ pchisq(phisq, 4, lower.tail = T)
 In a random sample of 120 graduates, 78 spent 3 years at University and 42 more than 3 years. Test hypothesis that 70% obtain degree in 3 years. 
 
 ```{r}
+Expected_vals <- c( 0.7 * 120 ,0.3 * 120 )
+Observed_vals <- c( 78, 42)
+phi_vec <- c(1:2)
+for (i  in 1:2) {phi_vec[i] <-((abs(Observed_vals[i]-Expected_vals[i])-0.5)^2)/Expected_vals[i]}
+phisq <- sum(phi_vec)
+round(phisq, digits = 3)
+qchisq(0.95, 1, lower.tail = T)
+pchisq(phisq, 1, lower.tail = T)
+```
+
+```{r Homework}
+
+alpha_bonferroni <- 0.05/3
+mu_mid <- 5.05
+mu_sur <-  4.20
+n_mid <- 10
+n_sur <-  10
+MSE <- 1.38
+df <- 27
+tdfe <-  (mu_mid-mu_sur)/sqrt((MSE/n_mid)+(MSE/n_sur))
+
+p_Val <- 2 * pt(tdfe, df = df, lower.tail = F )
+
+p_Val
+if ( alpha_bonferroni > p_Val){"Reject H0, there is evidence that there is difference in aldrin distributions in given groups"} else {"Accept H0, group means are not different"}
+
 
 ```
 
