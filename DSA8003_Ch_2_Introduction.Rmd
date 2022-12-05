@@ -1,0 +1,275 @@
+---
+title: "DSA8003 - Introduction"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+
+```{r include=FALSE}
+if(!require(skimr)) install.packages("skimr")
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(FactoMineR)) install.packages("FactoMineR")
+if(!require(factoextra)) install.packages("factoextra")
+if(!require(mlbench)) install.packages("mlbench") # contains various datasets
+if(!require(caret)) install.packages("caret")
+if(!require(RANN)) install.packages("RANN")
+if(!require(mice)) install.packages("mice")
+if(!require(NbClust)) install.packages("NbClust")
+if(!require(DescTools)) install.packages("DescTools")
+if(!require(ggplot2)) install.packages("ggplot2")
+
+library(skimr)
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+library(mlbench)
+library(caret)
+library(RANN)
+library(mice)
+library(NbClust)
+library(DescTools)
+library(ggplot2)
+```
+
+First note that there can be bugs in functions in R but more common ones will be highly checked. You can also use ? before most functions to see what it is doing. Please use in this, and all practicals to help you.
+
+# Reading in Data
+
+The dataset `nhanes` contains 25 observations on the following 4 variables:
+
+* `age`: Age group (1 = 20-39, 2 = 40-59, 3 = 60+)
+* `bmi`: Body mass index (kg/m^2)
+* `hyp`: Hypertensive (1 = no, 2 = yes)
+* `chl`: Total serum cholesterol (mg/dL)
+
+```{r}
+
+# We can load in data if it's from a package in R
+data<- nhanes
+
+# What if it is in a different file format? Read in the MS Excel file "nhanes" which is a csv file format, using the function read.csv(). Name it something different so you can check if it has been read in ok.
+
+
+# We can export data also to MS Excel csv files too. Use the function write.csv() to export the nhanes data set called "data".
+write.csv(data)
+
+# What does row.names=TRUE do? Why would we want that?
+
+# What other ways can you export data? xlsx files? Stata or SAS files? Do you need other packages for this?
+```
+
+# Univariate Analysis - measures of location
+
+```{r}
+
+# First look at the structure of the data using str()
+str(data)
+# What types of variables do we have?
+
+# Let's just use the data where there is complete data for now - use na.omit() for this
+na.omit(data)
+# How many observations and variables are there now?
+# What are the mean/mode/median of BMI? Why can't we calculate the mean of age?
+
+summary(data)
+
+# Use the following function for the mode - are there other packages you could use?
+
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+   return(uniqv)
+}
+
+result <-  getmode(data)
+if(!require(modeest)) {install.packages("modeest")}
+library(modeest)
+sapply(data, Mode)
+
+# Is this right? What has happened?
+
+```
+Mode only makes sense when applied to discrete variables.
+```{r}
+# Functions are helpful! Packages can do lots of things too with inbuilt functions, but we will use base R in this course when we can.
+
+```
+
+# Univariate Analysis - measures of variability
+
+```{r}
+
+# Calculate the range of BMI variable using the min() and max() functions. Compare to the range() function.
+#a
+bmiRange <- max(data$bmi, na.rm = TRUE) - min (data$bmi, na.rm = TRUE)
+range(data$bmi, na.rm = TRUE)
+# Use IQR() for the interquartile range of BMI
+
+bmiIQR <- IQR(data$bmi, na.rm = TRUE)
+# Use summary() to see what that shows about the BMI variable
+
+summary(data$bmi)
+
+# Calculate the interquartile range of BMI based on the summary data above
+
+bmiSummary <- summary(data$bmi)
+bmiSummary[5] - bmiSummary[2]
+# We could calculate the varian$ce manually or use a package as it is quicker and easier! Use var() for this on the BMI variable
+
+bmiVar <-  var(data$bmi, na.rm = TRUE)
+```
+
+
+# Univariate Analysis - measures of heterogeneity
+
+```{r}
+# Say we have 5 states with frequencies 10, 8, 15, 12, and 15.
+
+example<-c(10,8,15,12,15)
+
+# Change into probabilities (remember the formula for a probability!)
+probs <- proportions(example)
+
+# Gini index of heterogeneity is 1-sum(pi squared) - calculate this.
+
+Gini <- function(input) {
+  s <- 0
+  for (i in 1:length(input)) {
+    s = s + (input[i]/sum(input, na.rm = TRUE))^2
+  }
+  result = 1 - s
+  return(result)
+}
+
+Entropy <-  function(input) {  
+  e <- 0
+  for (i in 1:length(input)) {
+    e = e + ((input[i]/sum(input, na.rm = TRUE))*log10(input[i]/sum(input, na.rm = TRUE)))
+  }
+  result = -e
+  return(result)
+}
+
+giniEx <-  Gini(example)
+
+# Alternatively we could multiply by k/k-1 - how does the value change? Note, use length() if you need.
+
+giniExNormalized <-  giniEx * (length(example)/(length(example)-1))
+
+
+# Entropy is -sum pilog pi using log base 10 - automatically ln in R. Calculate this.
+
+entropyEx <- Entropy(example)
+# And normalise by dividing by log k.
+entropyExNormalized <-  entropyEx/log10(length(example))
+
+# Or using base 5 to begin with. Not as easy on a calculator but easy for R.
+
+```
+
+# Univariate Analysis - measures of concentration
+
+```{r}
+
+# We can manually input data in this case. Or we know how to upload files now! Here we look at example from the Chapter 2 notes.
+
+example_1 <- c(11000, 15000, 20000, 30000, 50000, 60000, 70000)
+
+# The package DescTools has a function created and uses Gini(), what is this value for this example?
+library(DescTools)
+Gini(example_1)
+
+Gini2 <- function(input) {
+  s <- 0
+  for (i in 1:length(input)) {
+    s = s + (input[i]/sum(input, na.rm = TRUE))^2
+  }
+  result = 1 - s
+  return(result)
+}
+
+
+# Try and calculate this manually
+Gini2(example_1)
+# Hint, to start...
+n <- length(example_1)
+n_list<-c(1:n)
+
+# Order these if not already in order using sort()
+
+sort(example_1)
+
+# Fi is i/n
+for (i in 1:n){
+ Fi[i] <- i/n
+ }
+# Qi is cumulative sum of i/total N
+Qi <- 0
+for (i in 1:n){
+ Qi[i] <- example_1[i]/sum(example_1)
+ }
+# Sum all but the last value for FiQi
+FiQi <- sum(Fi[-1]-Qi[-1])
+
+# It is the same for Fi
+Fi <- sum(Fi[-1])
+
+# Calculate the R value as the sum of FiQi divided by the sum of Fi
+
+R = FiQi/Fi
+ 
+```
+
+# Training and Test sets
+
+```{r}
+
+# Let's say we had another column in our data that outlined if someone had a heart attack or not. 
+data <-  na.omit(data)
+data$heart_attack<- c(1,1,0,0,1,0,0,0,0,1,0,1,0)
+
+# Use as.factor() to make this variable a factor.
+as.factor(data$heart_attack)
+
+# We will talk about this more in Chapter 5, but in essence we might want to split up our data set into a training and test set if we wanted to work on models and then check the results
+set.seed(228)
+sample <- sample(c(TRUE, FALSE), nrow(data), replace = TRUE, prob = c(0.8, 0.2))
+data_train <- data[sample,]
+data_test <-  data[!sample,]
+# The percentage of training set depends on a number of factors (to be discussed later) but for now let's set the train set to consist of 80% randomly selected observations while the test set should consist of the remaining 20%. Use createDataPartition() to do this.
+data_train2 <- createDataPartition(
+  data,
+  times = 1,
+  p = 0.8,
+  list = TRUE,
+  groups = min(5, length(data))
+)
+
+
+
+```
+
+# Displaying data
+
+```{r}
+# There are lots of types of plots and some were covered in DSA8001. There are also lots of packages that make nice plots. ggplot2 is a great package.
+
+?ggplot2
+
+library(ggplot2)
+
+# Use ggplot() and also hist() to create a histogram of BMI.
+
+ ggplot(data, aes(x = bmi)) + geom_histogram(bins = 10) + theme_bw( base_size = 12)
+
+# Add in the heart attack variable in the plot by using the fill argument with heart_attack.
+
+ ggplot(data, aes(x = bmi, color = heart_attack)) + geom_histogram(bins = 10) + theme_bw( base_size = 12, aes(position = "dodge")) + facet_wrap( ~ age) + geom_point(aes(y = chl))
+# Create more plots such as a boxplot and also use facet_wrap. Are these plots helpful?
+# How does the bin width change a histogram?
+# Use chl as a y variable for a geom_point plot
+
+
+```

@@ -1,0 +1,45 @@
+---
+title: "Lab 1"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+## Question 1
+
+a) Main categories of statistical index used in univariate analyses are:
+- **Measures of Location**
+- **Measures of Variability**
+- **Measures of Heterogeneity**
+- **Measures of Concentration**
+
+b)Measures if Heterogeneity are:
+- Gini Index
+- Entropy
+```{r}
+df <- c(10,8,15,12,15)
+
+Gini <- function(input) {
+  s <- 0
+  for (i in 1:length(input)) {
+    s = s + (input[i]/sum(input, na.rm = TRUE))^2
+  }
+  result = 1 - s
+  return(result)
+}
+
+Entropy <-  function(input) {  
+  e <- 0
+  for (i in 1:length(input)) {
+    e = e + ((input[i]/sum(input, na.rm = TRUE))*log10(input[i]/sum(input, na.rm = TRUE)))
+  }
+  result = -e
+  return(result)
+}
+
+paste("The non-normalized Gini-coefficient is:", round(Gini(df), 3))
+paste("The non-normalized Entropy is:", round(Entropy(df), 3))
+paste("Norm G:",round((length(df)/(length(df)-1)*(Gini(df))), 3))
+```
+
+##Question 2
