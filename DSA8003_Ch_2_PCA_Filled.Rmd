@@ -1,0 +1,155 @@
+---
+title: "DSA8003 - Princple Component Analysis"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r include=FALSE}
+if(!require(skimr)) install.packages("skimr")
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(FactoMineR)) install.packages("FactoMineR")
+if(!require(factoextra)) install.packages("factoextra")
+if(!require(mlbench)) install.packages("mlbench") # contains various datasets
+if(!require(caret)) install.packages("caret")
+if(!require(RANN)) install.packages("RANN")
+if(!require(mice)) install.packages("mice")
+if(!require(NbClust)) install.packages("NbClust")
+
+library(skimr)
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+library(mlbench)
+library(caret)
+library(RANN)
+library(mice)
+library(NbClust)
+```
+
+# Principal Component Analysis
+
+The dataset `decathlon` contains athletes' performance during two sporting meetings. The first ten columns corresponds to the performance of the athletes for the 10 events of the decathlon. The columns 11 and 12 correspond respectively to the rank and the points obtained. The last column is a categorical variable corresponding to the sporting event (2004 Olympic Game or 2004 Decastar).
+
+```{r}
+set.seed(123)
+
+# Load in the data
+data("decathlon")
+
+# Select the first 10 columns
+decathlon_copy <- decathlon[, c(1:10, 13)]
+
+
+###### Something else #####
+# Changing a continuous variable to Class
+#decathlon_copy$`1500m`<-cut(decathlon_copy$`1500m`, c(0,280,400), labels=c("L","H"))
+# >280 H or <= 280 L 1500m to Class
+
+# Remove the 1500m variable or Competition?
+#decathlon_copy<-decathlon_copy[,c(-10)]
+
+###########################
+
+
+# Inspect the dataframe 
+head(decathlon_copy)
+
+skim(decathlon_copy)
+
+# To simulate the real word scenario, create train and test sets.
+# We will set the train set to consist of 90% randomly selected observations
+# while the test set should consist of the remaining 10%
+in_train <- createDataPartition(decathlon_copy$Competition, p = 0.9, list = FALSE) 
+
+# caret's method for creating train/test partitions
+# returns indexes of observations that should be included in the train set
+decathlon_train <- decathlon_copy[in_train, ]
+decathlon_test <- decathlon_copy[-in_train, ]
+
+# Perform PCA only on the relevant numerical variables (first 10 columns)
+decathlon_pca <- prcomp(decathlon_train[, 1:10], center = TRUE, scale. = TRUE)
+
+summary(decathlon_pca)
+
+# Extract the matrix of variable loadings (i.e. eigenvectors)
+decathlon_pca$rotation
+
+# Extract: 
+  # 1. eigenvalues, 
+  # 2. proportion of variances (in %) explained by each PC
+# and indicate the number of PCs that should be retained 
+# if we wish to account for over 80% of the overall variability?
+eig <- get_eig(decathlon_pca)
+
+eig # by looking at the 3rd column we can see that we should retain first 5 PCs
+
+
+# Scree plot of proportion of variances (in %) explained by each PC
+fviz_eig(decathlon_pca)
+
+res_var <- get_pca_var(decathlon_pca) 
+
+# Calculate correlation between each variable Xi and each PCi 
+res_var$cor
+
+# The proportion of variability in an original variable Xi explained by each principal component PCi
+res_var$cos2 # or alternatively: res_var$cor^2
+
+# the proportion of variability in an original variable Xi explained by retaining the first two principal components PC1, PC2
+prop_var <- res_var$cos2[,1:2]
+
+prop_var <- cbind(prop_var, variability_explained = rowSums(prop_var))
+prop_var
+
+# Visualise this on a graph using the correlation circle
+# The radius of the circle is 1
+# The correlation between variables and principal components is used as coordinates (see: res_var$cor[,1:2])
+# and closer the variable is to the edges of circle, the more it is correlated to the corresponding PCs
+# colour options: “npg”, “aaas”, “lancet”, “jco”, “ucscgb”, “uchicago”, “simpsons”, “rickandmorty”
+fviz_pca_var(decathlon_pca, col.var = "cos2", gradient.cols = "rickandmorty")
+
+# Show the first 6 observations from the decathlon_train dataset
+head(decathlon_train)
+
+# Show the principal component scores for each of these 6 observations
+head(decathlon_pca$x)
+
+# Plot all the observation against the first two PCs
+# Colour individuals by the competition type
+fviz_pca_biplot(decathlon_pca, label="var", habillage = decathlon_train$Competition, addEllipses=TRUE, ellipse.level=0.95)
+
+# Earlier we discovered that we should retain the first 5 PCs
+# if we wish to account for over 80% of the overall variability
+# and if we would like to train ML model using PCA transformed dataset, we should select relevant variables
+decathlon_train_pca_transformed <- decathlon_pca$x[, 1:5] %>% 
+  as.data.frame() %>% 
+  mutate(
+    Competition = decathlon_train$Competition 
+    # we need to merge response variable from the train dataset with the PCs
+  )
+
+head(decathlon_train_pca_transformed)
+
+# Using previously trained PCA model, calculate the principal component scores of observations in the "decathlon_test" dataset
+# Make sure that you exclude Competition column 
+decathlon_test_pca_transformed <- predict(decathlon_pca, decathlon_test[,1:10]) 
+# PCA can only be performed on numerical variables
+
+decathlon_test_pca_transformed
+
+# Earlier we discovered that we should retain the first 5 PCs
+# if we wish to account for over 80% of the overall variability
+# as similarly to the train dataset, we should select the relevant variables
+
+decathlon_test_pca_transformed <- decathlon_test_pca_transformed[, 1:5] %>% 
+  as.data.frame() %>% 
+  mutate(
+    Competition = decathlon_test$Competition 
+    # we need to merge response variable from the train dataset with the PCs
+  )
+
+decathlon_test_pca_transformed
+```
+

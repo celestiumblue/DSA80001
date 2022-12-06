@@ -1,0 +1,148 @@
+---
+title: "DSA8003 - Missing Data"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+
+```{r include=FALSE}
+if(!require(skimr)) install.packages("skimr")
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(FactoMineR)) install.packages("FactoMineR")
+if(!require(factoextra)) install.packages("factoextra")
+if(!require(mlbench)) install.packages("mlbench") # contains various datasets
+if(!require(caret)) install.packages("caret")
+if(!require(RANN)) install.packages("RANN")
+if(!require(mice)) install.packages("mice")
+if(!require(NbClust)) install.packages("NbClust")
+
+library(skimr)
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+library(mlbench)
+library(caret)
+library(RANN)
+library(mice)
+library(NbClust)
+```
+
+# Missing data imputation
+
+The dataset `nhanes` contains 25 observations on the following 4 variables:
+
+* `age`: Age group (1 = 20-39, 2 = 40-59, 3 = 60+)
+* `bmi`: Body mass index (kg/m^2)
+* `hyp`: Hypertensive (1 = no, 2 = yes)
+* `chl`: Total serum cholesterol (mg/dL)
+
+## Multiple Imputation Method
+
+```{r}
+nhanes_copy <- nhanes
+
+# Investigate the missingness patterns
+md.pattern(nhanes_copy)
+
+# What is the most common missingness pattern?
+# What is the least common missingness pattern?
+
+# Perform the imputation
+nhanes_mice <- mice(nhanes_copy, m=5, method="pmm", seed=123, printFlag = FALSE)
+
+# To obtain an overview of the information stored in the object nhanes_mice, use the attributes() function:
+attributes(nhanes_mice)
+
+# The original dataset is stored in the data object
+nhanes_mice$data
+
+# The imputations are stored in the imp object
+nhanes_mice$imp
+
+# Inspect 1st imputed dataset
+complete(nhanes_mice, 1)
+
+# Fit a simple linear regression model for predicting bmi based on the age inputs
+# using the data from the original dataset
+# NOTE: use entire dataset for fitting the model
+nhanes_complete <- na.omit(nhanes_copy)
+lm_complete <- lm(bmi ~ age, data = nhanes_complete)
+
+# Inspect the model
+summary(lm_complete)
+
+# Fit a simple linear regression model for predicting bmi based on the age inputs
+# using the data from the imputed dataset which is obtained using the Multiple Imputation Method
+# NOTE: use entire dataset for fitting the model
+
+fit_mice <- with(nhanes_mice, lm(bmi ~ age)) # this will create 5 simple linear regression models
+summary(fit_mice) # inspect the model
+
+# Extract the coefficients of the first model
+# coef(fit_mice$analyses[[1]])
+
+
+# Note, that the estimates for bmi and age are different from each other in the two completed datasets. 
+# This is due to the uncertainty created by the missing data. 
+# We can now apply the standard pooling rules by doing the following. 
+# In this way we get the final coefficient estimates for the model using imputed data:
+fit_pooled <- pool(fit_mice)
+
+summary(fit_pooled)
+
+# Calculate the coefficent of determination of fit_mice model
+pool.r.squared(fit_mice)
+
+# Comment your findings on the model results
+```
+
+When we compare this multiple imputed model model with complete-case analysis, we see that the coefficient estimates are a little different. The estimate for `age` is significant in the pooled MICE model, while that is not the case with the original model. The R squared error of the coefficient estimates of complete-analysis are smaller here than the R squared error of the model were the missing values were imputed. This is not always the case. Because the multiply imputed model is based on 25 observations rather than 13, it could also have been the other way around.
+
+
+## Using CARET for missing data imputation
+
+```{r}
+
+# Imputation via medians takes the median of each predictor in the training set, and uses them to fill missing values. This method is simple, fast, and accepts missing values, but treats each predictor independently, and may be inaccurate.
+nhanes_medianImpute <- nhanes_copy %>% 
+  preProcess(method = c("medianImpute")) %>% 
+  predict(nhanes_copy)
+  
+lm_medianImpute <- lm(bmi ~ age, data = nhanes_medianImpute)
+
+summary(lm_medianImpute)
+
+
+# Imputation via bagging fits a bagged tree model for each predictor (as a function of all the others). This method is simple, accurate and accepts missing values, but it has much higher computational cost
+nhanes_bagImpute <- nhanes_copy %>% 
+  preProcess(method = c("bagImpute")) %>% 
+  predict(nhanes_copy)
+  
+lm_bagImpute <- lm(bmi ~ age, data = nhanes_bagImpute)
+
+summary(lm_bagImpute)
+
+# k-nearest neighbor imputation is carried out by finding the k closest samples (Euclidian distance) in the training set. 
+nhanes_knnImpute <- nhanes_copy %>% 
+  preProcess(method = c("knnImpute")) %>% 
+  predict(nhanes_copy)
+  
+lm_knnImpute <- lm(bmi ~ age, data = nhanes_knnImpute)
+
+summary(lm_knnImpute)
+```
+
+```{r}
+# compare all models, and discuss your findings
+
+summary(lm_complete)
+summary(fit_pooled)
+summary(lm_medianImpute)
+summary(lm_bagImpute)
+summary(lm_knnImpute)
+```
