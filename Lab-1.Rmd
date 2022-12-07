@@ -41,5 +41,3 @@ paste("The non-normalized Gini-coefficient is:", round(Gini(df), 3))
 paste("The non-normalized Entropy is:", round(Entropy(df), 3))
 paste("Norm G:",round((length(df)/(length(df)-1)*(Gini(df))), 3))
 ```
-
-##Question 2
