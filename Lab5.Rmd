@@ -1,0 +1,46 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+##Question 1
+
+```{r}
+install.package(zoo)
+```
+
+
+A decision tree can be built to decide if new subjects are likely to have a BMI>25 
+or  not,  based  on  the  two  discrete-valued  variables  “Play  Football?”  and  “Watch 
+Football?”, together with the continuous variable “age”.  
+a) Using the criterion of entropy-based information gain, determine the best split-
+point of the continuous variable “age” at the root node of the decision tree. 
+
+```{r echo=, warning=FALSE}
+library(zoo)
+playFootbal <- c(4, 5)
+watchFootball <- c(5, 4)
+age <- c(25, 27, 28, 23, 27, 24, 25, 21, 21)
+age <- sort(age)
+age <-  rollmean(age, 2)
+Enthropy <- function(n, m , k = 2){
+  
+}
+informationGain <- function(df, splitPoint, k = 2){
+  
+  ES <- -(4/9)*log(4/9, k)-(5/9)*log(5/9, 2)
+  E
+  result <- 
+}
+
+
+```
+
+b) Hence  determine  which  of  the  three  variables:  “Play  Football?”,  “Watch 
+Football?”, and “age”, is the most appropriate to place as the decision variable 
+at the root node of the decision tree.  
+
+```{r echo=FALSE, warning = F}
+
+```
+
